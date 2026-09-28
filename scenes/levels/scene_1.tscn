@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://88iakfblprwm"]
+
+[ext_resource type="PackedScene" uid="uid://bxhd6s31j65n2" path="res://scenes/player/player.tscn" id="1_e77pf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e77pf"]
+load_path = "res://.godot/imported/floors.png-8116bf3ac5aaea89578b0a9dcdefe21b.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ectdm"]
+texture = SubResource("CompressedTexture2D_e77pf")
+texture_region_size = Vector2i(32, 31)
+0:7/size_in_atlas = Vector2i(34, 3)
+0:7/0 = 0
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-536.16547, -23.905472, 56.690125, -23.905472, 409.80804, -23.905472, 429.61542, -21.173416, 429.61542, -25.2715, 435.07953, -32.101624, 458.302, -34.150665, 480.84143, -38.24875, 501.3318, -32.784637, 516.3581, -15.709305, 518.40717, -4.7810974, 514.99207, 8.196167, 493.13568, 21.173416, 475.37732, 24.588486, 225.39441, 40.98079, 52.592033, 40.98079, 47.12793, 38.24875, -180.31549, 34.833694, -433.71347, 21.173416, -488.35452, 12.977249, -521.13916, 2.0490417, -538.8975, -9.562195)
+
+[sub_resource type="TileSet" id="TileSet_xyp5l"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ectdm")
+
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_5gtgg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyp5l"]
+size = Vector2(139, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e77pf"]
+size = Vector2(139, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ake7g"]
+size = Vector2(387.5, 29)
+
+[node name="Scene1" type="Node2D" unique_id=211941082]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=693754802]
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 233, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 166, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 16, 43, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 102, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0)
+tile_set = SubResource("TileSet_xyp5l")
+
+[node name="Player" parent="." unique_id=1681234604 instance=ExtResource("1_e77pf")]
+position = Vector2(-270, -109)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1138523148]
+position = Vector2(-265, -68)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=160378710]
+position = Vector2(0, 7.6293945e-06)
+scale = Vector2(2.171875, 0.453125)
+texture = SubResource("DrawableTexture2D_5gtgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1366586275]
+shape = SubResource("RectangleShape2D_xyp5l")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=242702985]
+position = Vector2(-472, -115)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=962411760]
+position = Vector2(0, 7.6293945e-06)
+scale = Vector2(2.171875, 0.453125)
+texture = SubResource("DrawableTexture2D_5gtgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=2116865260]
+shape = SubResource("RectangleShape2D_e77pf")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=868726288]
+position = Vector2(-668, -167)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=819833400]
+position = Vector2(-123.749985, 7.6293945e-06)
+scale = Vector2(6.039062, 0.453125)
+texture = SubResource("DrawableTexture2D_5gtgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1717312557]
+position = Vector2(-124.25, 0)
+shape = SubResource("RectangleShape2D_ake7g")
