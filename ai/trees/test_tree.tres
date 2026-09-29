@@ -1,0 +1,105 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://dwdr2orxqhk07"]
+
+[ext_resource type="Script" uid="uid://dpc86otwvoyfa" path="res://ai/tasks/find_target.gd" id="1_6kuyo"]
+[ext_resource type="Script" uid="uid://b1qw8lsjj77mc" path="res://ai/tasks/is_target_in_range.gd" id="2_jwj43"]
+[ext_resource type="Script" uid="uid://blmfmrg34dqpo" path="res://ai/tasks/is_target_in_sight.gd" id="3_kxk1o"]
+[ext_resource type="Script" uid="uid://c76jj8peyp36l" path="res://ai/tasks/face_target.gd" id="4_alme7"]
+[ext_resource type="Script" uid="uid://dg1hncsr07v0h" path="res://ai/tasks/move_horizontal.gd" id="5_qu6iv"]
+[ext_resource type="Script" uid="uid://qtdkma28nb75" path="res://ai/tasks/stop_horizontal_movement.gd" id="6_kosrh"]
+[ext_resource type="Script" uid="uid://66i3ql8moifs" path="res://ai/tasks/is_on_floor.gd" id="6_thmw6"]
+[ext_resource type="Script" uid="uid://dspme6rjnl5m8" path="res://ai/tasks/is_ledge_ahead.gd" id="6_ucdji"]
+[ext_resource type="Script" uid="uid://h42iwlrfthks" path="res://ai/tasks/is_wall_ahead.gd" id="7_lbuxp"]
+[ext_resource type="Script" uid="uid://desukc1q7c03l" path="res://ai/tasks/turn_around.gd" id="8_lbuxp"]
+[ext_resource type="Script" uid="uid://bwaiojk427enq" path="res://ai/tasks/jump.gd" id="8_ppwhi"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ihcj0"]
+var/target_node/name = &"target_node"
+var/target_node/type = 22
+var/target_node/value = NodePath("")
+var/target_node/hint = 0
+var/target_node/hint_string = ""
+
+[sub_resource type="BTCondition" id="BTCondition_kosrh"]
+script = ExtResource("6_thmw6")
+
+[sub_resource type="BTInvert" id="BTInvert_thmw6"]
+children = [SubResource("BTCondition_kosrh")]
+
+[sub_resource type="BTAction" id="BTAction_l4anq"]
+script = ExtResource("1_6kuyo")
+
+[sub_resource type="BTCondition" id="BTCondition_alme7"]
+script = ExtResource("2_jwj43")
+range = 750.0
+
+[sub_resource type="BTCondition" id="BTCondition_qu6iv"]
+script = ExtResource("3_kxk1o")
+
+[sub_resource type="BTAction" id="BTAction_ucdji"]
+script = ExtResource("4_alme7")
+
+[sub_resource type="BTCondition" id="BTCondition_i3ulo"]
+script = ExtResource("2_jwj43")
+range = 100.0
+
+[sub_resource type="BTAction" id="BTAction_a7660"]
+script = ExtResource("6_kosrh")
+
+[sub_resource type="BTSequence" id="BTSequence_0swk7"]
+custom_name = "stop if reached target"
+children = [SubResource("BTCondition_i3ulo"), SubResource("BTAction_a7660")]
+
+[sub_resource type="BTCondition" id="BTCondition_g73xh"]
+script = ExtResource("7_lbuxp")
+
+[sub_resource type="BTAction" id="BTAction_i3ulo"]
+script = ExtResource("8_ppwhi")
+jump_strength = 800.0
+
+[sub_resource type="BTSequence" id="BTSequence_0hox1"]
+custom_name = "Jump Over Wall"
+children = [SubResource("BTCondition_g73xh"), SubResource("BTAction_i3ulo")]
+
+[sub_resource type="BTAction" id="BTAction_lbuxp"]
+script = ExtResource("5_qu6iv")
+speed = 500.0
+
+[sub_resource type="BTSelector" id="BTSelector_a7660"]
+children = [SubResource("BTSequence_0swk7"), SubResource("BTSequence_0hox1"), SubResource("BTAction_lbuxp")]
+
+[sub_resource type="BTSequence" id="BTSequence_ucdji"]
+custom_name = "Chase Player"
+children = [SubResource("BTAction_l4anq"), SubResource("BTCondition_alme7"), SubResource("BTCondition_qu6iv"), SubResource("BTAction_ucdji"), SubResource("BTSelector_a7660")]
+
+[sub_resource type="BTCondition" id="BTCondition_thmw6"]
+script = ExtResource("6_ucdji")
+
+[sub_resource type="BTCondition" id="BTCondition_ppwhi"]
+script = ExtResource("7_lbuxp")
+
+[sub_resource type="BTSelector" id="BTSelector_thmw6"]
+children = [SubResource("BTCondition_thmw6"), SubResource("BTCondition_ppwhi")]
+
+[sub_resource type="BTAction" id="BTAction_thmw6"]
+script = ExtResource("8_lbuxp")
+
+[sub_resource type="BTSequence" id="BTSequence_kosrh"]
+custom_name = "Flip if there's a wall OR a ledge"
+children = [SubResource("BTSelector_thmw6"), SubResource("BTAction_thmw6")]
+
+[sub_resource type="BTAction" id="BTAction_alme7"]
+script = ExtResource("5_qu6iv")
+
+[sub_resource type="BTSelector" id="BTSelector_lbuxp"]
+children = [SubResource("BTSequence_kosrh"), SubResource("BTAction_alme7")]
+
+[sub_resource type="BTSequence" id="BTSequence_lbuxp"]
+custom_name = "Random Roam"
+children = [SubResource("BTSelector_lbuxp")]
+
+[sub_resource type="BTSelector" id="BTSelector_6kuyo"]
+children = [SubResource("BTInvert_thmw6"), SubResource("BTSequence_ucdji"), SubResource("BTSequence_lbuxp")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ihcj0")
+root_task = SubResource("BTSelector_6kuyo")

@@ -51,7 +51,7 @@ _data = {
 [node name="Scene1" type="Node2D" unique_id=211941082]
 
 [node name="AgentBase" parent="." unique_id=1136658006 instance=ExtResource("2_auv56")]
-position = Vector2(745, -283)
+position = Vector2(8, -320)
 
 [node name="Player" parent="." unique_id=1681234604 instance=ExtResource("1_uk4sb")]
 position = Vector2(-400, -32)
@@ -95,8 +95,8 @@ scale = Vector2(0.99999994, 1)
 shape = SubResource("RectangleShape2D_xyp5l")
 
 [node name="Platform2" type="Sprite2D" parent="Platforms" unique_id=1658294635]
-position = Vector2(128, -63.999996)
-scale = Vector2(1.9999999, 0.99999994)
+position = Vector2(-58.000015, -32)
+scale = Vector2(4.90625, 0.5)
 texture = SubResource("DrawableTexture2D_5gtgg")
 centered = false
 metadata/_edit_group_ = true
@@ -122,23 +122,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MovingPlatform" unique_id=2055536430]
 position = Vector2(32, 31.999634)
 shape = SubResource("RectangleShape2D_uk4sb")
-
-[node name="Platform12" type="Sprite2D" parent="Platforms" unique_id=1824966764]
-position = Vector2(128, -64)
-rotation = 0.7853982
-scale = Vector2(0.99999976, 1.5970333)
-texture = SubResource("DrawableTexture2D_5gtgg")
-centered = false
-metadata/_edit_group_ = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Platform12" unique_id=286045119]
-position = Vector2(0, -1.5258789e-05)
-scale = Vector2(0.46043167, 2.2068968)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform12/StaticBody2D" unique_id=953967491]
-position = Vector2(69.5, 14.500005)
-scale = Vector2(0.99999994, 1)
-shape = SubResource("RectangleShape2D_xyp5l")
 
 [node name="Platform4" type="Sprite2D" parent="Platforms" unique_id=412650573]
 position = Vector2(-128, -192)
