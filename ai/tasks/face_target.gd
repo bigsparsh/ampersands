@@ -8,7 +8,7 @@ var actor: AgentBase:
 
 func _generate_name() -> String:
 	return "Face the target - [%s]" % [
-		LimboUtility.decorate_var(target_var),
+		target_var,
 	]
 	
 

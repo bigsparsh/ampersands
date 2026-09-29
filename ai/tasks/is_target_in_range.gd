@@ -9,7 +9,7 @@ var actor: AgentBase:
 
 func _generate_name() -> String:
 	return "Is target within [%s]px of the agent?" % [
-		LimboUtility.decorate_var(str(range))
+		range
 	]
 
 func _tick(delta: float) -> Status:

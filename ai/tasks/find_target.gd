@@ -9,8 +9,8 @@ var actor: AgentBase:
 
 func _generate_name() -> String:
 	return "Find node with group [%s] and set to [%s]" % [
-		LimboUtility.decorate_var(group),
-		LimboUtility.decorate_var(out_var)
+		group,
+		out_var
 	]
 
 var node: Node2D

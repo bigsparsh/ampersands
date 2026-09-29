@@ -9,7 +9,7 @@ var actor: AgentBase:
 
 func _generate_name() -> String:
 	return "Has line of sight to [%s]" % [
-		LimboUtility.decorate_var(str(target_var))
+		target_var
 	]
 
 func _tick(_delta: float) -> Status:
