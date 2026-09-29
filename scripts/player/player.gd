@@ -16,6 +16,7 @@ const DEBUG_TICK = preload("uid://byjxn46oactcj")
 @export var coyote_time: float = 350
 @export var jump_buffer_time: float = 10
 @export var wall_gravity: float = 350
+@export var gravity: float = 2000.0
 @export var gravity_multiplier: float = 1
 @export var dash_speed: float = 1000
 @export var dash_time: float = 0.1
@@ -71,7 +72,7 @@ func _remove_tick(tick):
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta * gravity_multiplier
+		velocity.y += gravity * delta * gravity_multiplier
 		
 	direction = Input.get_axis("left", "right")
 	if direction:

@@ -123,8 +123,9 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyp5l"]
-size = Vector2(10, 34)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uk4sb"]
+radius = 21.0
+height = 134.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_h17s1"]
 var/can_double_jump/name = &"can_double_jump"
@@ -142,22 +143,23 @@ var/can_dash/hint_string = "Can the player dash?"
 script = ExtResource("1_8afob")
 sprite = NodePath("Sprite")
 label = NodePath("StateLabel")
+walk_speed = 700.0
+run_speed = 900.0
+jump_speed = Vector2(600, -1000)
+gravity = 980.0
+dash_speed = 4000.0
 hsm = NodePath("LimboHSM")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1631609272]
-position = Vector2(2.999999, -19)
-scale = Vector2(0.046028808, 0.048611075)
+position = Vector2(3.0000005, -83.98)
+scale = Vector2(0.2, 0.213)
 sprite_frames = SubResource("SpriteFrames_xyp5l")
 animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
-position = Vector2(0, -17)
-shape = SubResource("RectangleShape2D_xyp5l")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1156684669]
-zoom = Vector2(1.5, 1.5)
-position_smoothing_speed = 20.0
+position = Vector2(0, -68.98001)
+shape = SubResource("CapsuleShape2D_uk4sb")
 
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=1247671996]
 blackboard_plan = SubResource("BlackboardPlan_h17s1")
@@ -185,10 +187,9 @@ script = ExtResource("9_h17s1")
 
 [node name="StateLabel" type="Label" parent="." unique_id=2076747592]
 offset_left = -30.0
-offset_top = -47.0
+offset_top = -182.0
 offset_right = 30.0
-offset_bottom = -33.0
+offset_bottom = -163.0
 theme_override_fonts/font = ExtResource("5_p47bc")
-theme_override_font_sizes/font_size = 10
 text = "State"
 horizontal_alignment = 1

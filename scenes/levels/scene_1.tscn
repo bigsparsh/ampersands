@@ -30,12 +30,13 @@ size = Vector2(387.5, 29)
 [node name="Scene1" type="Node2D" unique_id=211941082]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=693754802]
-scale = Vector2(0.5, 0.5)
 tile_map_data = PackedByteArray(0, 0, 233, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 166, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 16, 43, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 102, 255, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0)
 tile_set = SubResource("TileSet_xyp5l")
 
 [node name="Player" parent="." unique_id=1681234604 instance=ExtResource("1_e77pf")]
 position = Vector2(-270, -109)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=895593191]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1138523148]
 position = Vector2(-265, -68)

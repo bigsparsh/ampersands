@@ -9,6 +9,7 @@ func _enter() -> void:
 	
 func _update(delta: float) -> void:
 	buffer_timer -= delta
+	print(buffer_timer)
 	if Input.is_action_just_pressed("jump"):
 		if blackboard.get_var(&"can_double_jump"):
 			blackboard.set_var(&"can_double_jump", false)
