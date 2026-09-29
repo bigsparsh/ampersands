@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7ljck6rwflcb"]
 
 [ext_resource type="PackedScene" uid="uid://bxhd6s31j65n2" path="res://scenes/player/player.tscn" id="1_uk4sb"]
+[ext_resource type="PackedScene" uid="uid://ciivootdnja86" path="res://scenes/NPCs/agent_base.tscn" id="2_auv56"]
 
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_5gtgg"]
 
@@ -48,6 +49,9 @@ _data = {
 }
 
 [node name="Scene1" type="Node2D" unique_id=211941082]
+
+[node name="AgentBase" parent="." unique_id=1136658006 instance=ExtResource("2_auv56")]
+position = Vector2(745, -283)
 
 [node name="Player" parent="." unique_id=1681234604 instance=ExtResource("1_uk4sb")]
 position = Vector2(-400, -32)

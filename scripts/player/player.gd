@@ -80,3 +80,7 @@ func _physics_process(delta: float) -> void:
 		facing = sprite.flip_h
 	label.text = hsm.get_active_state().name
 	move_and_slide()
+
+
+func _on_death() -> void:
+	queue_free()

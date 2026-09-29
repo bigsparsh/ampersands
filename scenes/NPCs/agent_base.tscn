@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ciivootdnja86"]
+
+[ext_resource type="Texture2D" uid="uid://8wccpbti2rmm" path="res://assets/enemies/spiky/frame-1.png" id="1_qpufb"]
+[ext_resource type="PackedScene" uid="uid://cmjccqdref56j" path="res://scenes/components/hit_box.tscn" id="2_xjq7s"]
+[ext_resource type="PackedScene" uid="uid://q85ogwpofb84" path="res://scenes/components/hurt_box.tscn" id="3_6rc6b"]
+[ext_resource type="PackedScene" uid="uid://7x0qyqr2ynak" path="res://scenes/components/health.tscn" id="4_u4rky"]
+[ext_resource type="PackedScene" uid="uid://dq54fgitdiuhd" path="res://scenes/components/health_bar.tscn" id="5_6rc6b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4w8r7"]
+radius = 43.56604
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jd6vm"]
+radius = 50.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5dyjm"]
+radius = 68.26419
+
+[node name="AgentBase" type="CharacterBody2D" unique_id=1136658006]
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=541195508]
+position = Vector2(0, -56)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_qpufb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1581021126]
+position = Vector2(0, -43)
+shape = SubResource("CircleShape2D_4w8r7")
+
+[node name="HitBox" parent="." unique_id=1620250177 instance=ExtResource("2_xjq7s")]
+knockback_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1805255283]
+position = Vector2(0, -53)
+shape = SubResource("CircleShape2D_jd6vm")
+debug_color = Color(0.86947167, 0.29397118, 0.50381154, 0.41960785)
+
+[node name="HurtBox" parent="." unique_id=2042361983 node_paths=PackedStringArray("health") instance=ExtResource("3_6rc6b")]
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=165908605]
+position = Vector2(0, -43)
+shape = SubResource("CircleShape2D_5dyjm")
+debug_color = Color(2.3102762e-06, 0.64008766, 0.35977542, 0.41960785)
+
+[node name="Health" parent="." unique_id=657937597 instance=ExtResource("4_u4rky")]
+
+[node name="HealthBar" parent="." unique_id=1768627622 node_paths=PackedStringArray("health") instance=ExtResource("5_6rc6b")]
+unique_name_in_owner = true
+offset_left = -80.0
+offset_top = -143.0
+offset_right = 81.0
+offset_bottom = -116.0
+health = NodePath("../Health")
