@@ -1,168 +1,46 @@
 [gd_scene format=3 uid="uid://bxhd6s31j65n2"]
 
 [ext_resource type="Script" uid="uid://volee53jb5cn" path="res://scripts/player/player.gd" id="1_8afob"]
-[ext_resource type="Texture2D" uid="uid://cgohw7imv4bcu" path="res://assets/player/walk_new.png" id="2_dovo2"]
-[ext_resource type="Texture2D" uid="uid://dqp14mb6aojww" path="res://assets/player/fall.png" id="2_lvxji"]
-[ext_resource type="Texture2D" uid="uid://d2ycxn8gwyy1s" path="res://assets/player/jump.png" id="4_p47bc"]
 [ext_resource type="Script" uid="uid://c5nks3yl2ln3e" path="res://scripts/player/states/walk.gd" id="5_0owmy"]
 [ext_resource type="Script" uid="uid://d0xp2hfveojay" path="res://scripts/player/states/idle.gd" id="5_75vfm"]
 [ext_resource type="FontFile" uid="uid://ch52uwldyfv7n" path="res://assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://6uj1avqx1p0i" path="res://scripts/player/states/jump.gd" id="6_qek5x"]
 [ext_resource type="Script" uid="uid://bpramklhutgmy" path="res://scripts/player/states/fall.gd" id="7_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://l6axt6maal0c" path="res://scenes/debug/DebugDraw.tscn" id="8_qek5x"]
 [ext_resource type="Script" uid="uid://cabr6h7klrmcw" path="res://scripts/player/states/dash.gd" id="9_h17s1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ugbui"]
-atlas = ExtResource("4_p47bc")
-region = Rect2(3840, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
-atlas = ExtResource("2_lvxji")
-region = Rect2(0, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
-atlas = ExtResource("2_lvxji")
-region = Rect2(1920, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(0, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
-atlas = ExtResource("4_p47bc")
-region = Rect2(0, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fm80t"]
-atlas = ExtResource("4_p47bc")
-region = Rect2(1920, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gx1jg"]
-atlas = ExtResource("4_p47bc")
-region = Rect2(3840, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(1920, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(3840, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(5760, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(7680, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(9600, 0, 1920, 1080)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xyp5l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ugbui")
-}],
-"loop": 1,
-"name": &"dash",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qek5x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5gtgg")
-}],
-"loop": 1,
-"name": &"fall",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h17s1")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_je7p5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fm80t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gx1jg")
-}],
-"loop": 0,
-"name": &"jump",
-"speed": 7.5
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gmlin")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lvxji")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p47bc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_75vfm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0owmy")
-}],
-"loop": 1,
-"name": &"walk",
-"speed": 24.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uk4sb"]
-radius = 21.0
-height = 134.0
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_h17s1"]
-var/can_double_jump/name = &"can_double_jump"
-var/can_double_jump/type = 1
-var/can_double_jump/value = false
-var/can_double_jump/hint = 0
-var/can_double_jump/hint_string = "Can the player double jump?"
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_je7p5"]
 var/can_dash/name = &"can_dash"
 var/can_dash/type = 1
 var/can_dash/value = true
 var/can_dash/hint = 0
-var/can_dash/hint_string = "Can the player dash?"
+var/can_dash/hint_string = ""
+var/can_double_jump/name = &"can_double_jump"
+var/can_double_jump/type = 1
+var/can_double_jump/value = false
+var/can_double_jump/hint = 0
+var/can_double_jump/hint_string = ""
 
-[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("sprite", "label", "hsm")]
+[sub_resource type="Gradient" id="Gradient_0owmy"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.4752747, 1)
+colors = PackedColorArray(0.77817786, 1.2032688e-06, 0.41362226, 1, 0.3058382, 0.5189027, 0.51735073, 1, 1, 0.42745098, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0owmy"]
+gradient = SubResource("Gradient_0owmy")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uk4sb"]
+radius = 15.0
+height = 100.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("label", "hsm")]
 script = ExtResource("1_8afob")
-sprite = NodePath("Sprite")
 label = NodePath("StateLabel")
-walk_speed = 700.0
-run_speed = 900.0
-jump_speed = Vector2(600, -1000)
-gravity = 980.0
-dash_speed = 4000.0
+jump_buffer_time = 0.15
 hsm = NodePath("LimboHSM")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1631609272]
-position = Vector2(3.0000005, -83.98)
-scale = Vector2(0.2, 0.213)
-sprite_frames = SubResource("SpriteFrames_xyp5l")
-animation = &"walk"
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
-position = Vector2(0, -68.98001)
-shape = SubResource("CapsuleShape2D_uk4sb")
-
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=1247671996]
-blackboard_plan = SubResource("BlackboardPlan_h17s1")
+blackboard_plan = SubResource("BlackboardPlan_je7p5")
 
 [node name="Walk" type="LimboState" parent="LimboHSM" unique_id=1705084028]
 script = ExtResource("5_0owmy")
@@ -186,10 +64,22 @@ script = ExtResource("5_75vfm")
 script = ExtResource("9_h17s1")
 
 [node name="StateLabel" type="Label" parent="." unique_id=2076747592]
-offset_left = -30.0
-offset_top = -182.0
-offset_right = 30.0
-offset_bottom = -163.0
+offset_left = -147.0
+offset_top = -188.0
+offset_right = 148.0
+offset_bottom = -104.0
 theme_override_fonts/font = ExtResource("5_p47bc")
 text = "State"
 horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1912700645]
+position = Vector2(0, -52)
+scale = Vector2(0.125, 102)
+texture = SubResource("GradientTexture1D_0owmy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
+position = Vector2(0, -51)
+shape = SubResource("CapsuleShape2D_uk4sb")
+
+[node name="DebugDraw" parent="." unique_id=1049227628 instance=ExtResource("8_qek5x")]
+enabled = false
