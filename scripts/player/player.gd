@@ -75,3 +75,7 @@ func _physics_process(delta: float) -> void:
 			 gravity_multiplier,
 			 get_gravity() * delta * gravity_multiplier])
 	move_and_slide()
+
+
+func _on_death() -> void:
+	queue_free()

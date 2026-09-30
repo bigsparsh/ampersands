@@ -73,6 +73,16 @@ attack={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_9="player_hurtbox"
+2d_physics/layer_10="player_hitbox"
+2d_physics/layer_11="enemy_hurtbox"
+2d_physics/layer_12="enemy_hitbox"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

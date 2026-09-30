@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://bpramklhutgmy" path="res://scripts/player/states/fall.gd" id="7_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://l6axt6maal0c" path="res://scenes/debug/DebugDraw.tscn" id="8_qek5x"]
 [ext_resource type="Script" uid="uid://cabr6h7klrmcw" path="res://scripts/player/states/dash.gd" id="9_h17s1"]
+[ext_resource type="PackedScene" uid="uid://q85ogwpofb84" path="res://scenes/components/hurt_box.tscn" id="11_gx1jg"]
+[ext_resource type="PackedScene" uid="uid://7x0qyqr2ynak" path="res://scenes/components/health.tscn" id="12_ugbui"]
+[ext_resource type="PackedScene" uid="uid://dq54fgitdiuhd" path="res://scenes/components/health_bar.tscn" id="13_fcs02"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_je7p5"]
 var/can_dash/name = &"can_dash"
@@ -72,14 +75,23 @@ theme_override_fonts/font = ExtResource("5_p47bc")
 text = "State"
 horizontal_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1912700645]
-position = Vector2(0, -52)
-scale = Vector2(0.125, 102)
-texture = SubResource("GradientTexture1D_0owmy")
+[node name="Health" parent="." unique_id=657937597 instance=ExtResource("12_ugbui")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
-position = Vector2(0, -51)
-shape = SubResource("CapsuleShape2D_uk4sb")
+[node name="HurtBox" parent="." unique_id=2042361983 node_paths=PackedStringArray("health") instance=ExtResource("11_gx1jg")]
+collision_layer = 256
+health = NodePath("../Health")
 
-[node name="DebugDraw" parent="." unique_id=1049227628 instance=ExtResource("8_qek5x")]
-enabled = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1412642297]
+position = Vector2(0, -69)
+shape = SubResource("CapsuleShape2D_4w8r7")
+debug_color = Color(2.3102762e-06, 0.64008766, 0.35977542, 0.41960785)
+
+[node name="HealthBar" parent="." unique_id=1768627622 node_paths=PackedStringArray("health") instance=ExtResource("13_fcs02")]
+unique_name_in_owner = true
+offset_left = -80.0
+offset_top = -210.0
+offset_right = 81.0
+offset_bottom = -183.0
+health = NodePath("../Health")
+
+[connection signal="death" from="Health" to="." method="_on_death"]
