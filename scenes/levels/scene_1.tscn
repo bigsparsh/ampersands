@@ -37,6 +37,7 @@ tile_set = SubResource("TileSet_xyp5l")
 position = Vector2(-270, -109)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=895593191]
+position_smoothing_enabled = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1138523148]
 position = Vector2(-265, -68)

@@ -3,25 +3,25 @@ extends CharacterBody2D
 const DEBUG_TICK = preload("uid://byjxn46oactcj")
 
 @export_category("Debug")
-@export var tick_fade_time: float = 10.0
+#@export var tick_fade_time: float = 5.0
+#@export var debug_draw: Script
 
 @export_category("Player Elements")
-@export var sprite: AnimatedSprite2D 
+#@export var sprite: AnimatedSprite2D 
 @export var label: Label 
 
 @export_category("Movement")
-@export var walk_speed: float = 300
+@export var walk_speed: float = 500
 @export var run_speed: float = 600
-@export var jump_speed: Vector2 = Vector2(250, -600)
+@export var jump_speed: Vector2 = Vector2(450, -1000)
 @export var coyote_time: float = 350
-@export var jump_buffer_time: float = 10
+@export var jump_buffer_time: float = 1.0
 @export var wall_gravity: float = 350
-@export var gravity: float = 2000.0
-@export var gravity_multiplier: float = 1
-@export var dash_speed: float = 1000
-@export var dash_time: float = 0.1
+@export var gravity_multiplier: float = 1.0
+@export var dash_speed: float = 1200
+@export var dash_time: float = 0.15
 var facing: bool = false
-var direction: int
+var direction: float
 
 @export_category("HSM")
 @export var hsm: LimboHSM
@@ -58,27 +58,22 @@ func _init_state_machine () -> void:
 	hsm.initialize(self)
 	hsm.set_active(true)
 
-func add_tick(color):
-	var tick = DEBUG_TICK.instantiate()
-	tick.position = position
-	tick.modulate = color
-	get_tree().root.add_child(tick)
-	
-	_remove_tick(tick)
+var current_paths = []
 
-func _remove_tick(tick):
-	get_tree().create_timer(tick_fade_time).timeout
-	get_tree().root.remove_child(tick)
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y += gravity * delta * gravity_multiplier
+		velocity += get_gravity() * delta * gravity_multiplier
 		
 	direction = Input.get_axis("left", "right")
 	if direction:
-		sprite.flip_h = true if direction == -1 else false
-		facing = sprite.flip_h
-	label.text = hsm.get_active_state().name
+		#sprite.flip_h = true if direction == -1 else false
+		facing = true if direction == -1 else false
+	label.text = "State: {0}\nGravityM: {1}\nGravity:{2}"\
+	.format([hsm.get_active_state().name, 
+			 gravity_multiplier,
+			 get_gravity() * delta * gravity_multiplier])
 	move_and_slide()
 
 
