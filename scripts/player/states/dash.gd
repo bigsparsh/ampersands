@@ -27,6 +27,7 @@ func _enter() -> void:
 func _update(delta: float) -> void:
 	dash_timer -= delta
 	point_timer += delta
+	
 	# Add debug points for parabola visual
 	if point_timer > debug_point_gap:
 		point_timer = 0

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxhd6s31j65n2"]
 
 [ext_resource type="Script" uid="uid://volee53jb5cn" path="res://scripts/player/player.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://cwskjsat4wpeh" path="res://scripts/player/states/hurt.gd" id="4_5gtgg"]
 [ext_resource type="Script" uid="uid://c5nks3yl2ln3e" path="res://scripts/player/states/walk.gd" id="5_0owmy"]
 [ext_resource type="Script" uid="uid://d0xp2hfveojay" path="res://scripts/player/states/idle.gd" id="5_75vfm"]
 [ext_resource type="FontFile" uid="uid://ch52uwldyfv7n" path="res://assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf" id="5_p47bc"]
@@ -33,10 +34,10 @@ gradient = SubResource("Gradient_0owmy")
 radius = 15.0
 height = 100.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("label", "hsm")]
+[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("sprite", "label", "hsm")]
 script = ExtResource("1_8afob")
+sprite = NodePath("Sprite2D")
 label = NodePath("StateLabel")
-jump_buffer_time = 0.15
 hsm = NodePath("LimboHSM")
 
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=1247671996]
@@ -53,6 +54,9 @@ script = ExtResource("5_0owmy")
 
 [node name="Jump" type="LimboState" parent="LimboHSM" unique_id=673738560]
 script = ExtResource("6_qek5x")
+
+[node name="Hurt" type="LimboState" parent="LimboHSM" unique_id=632210233]
+script = ExtResource("4_5gtgg")
 
 [node name="Fall" type="LimboState" parent="LimboHSM" unique_id=852046470]
 script = ExtResource("7_5gtgg")
@@ -82,4 +86,3 @@ position = Vector2(0, -51)
 shape = SubResource("CapsuleShape2D_uk4sb")
 
 [node name="DebugDraw" parent="." unique_id=1049227628 instance=ExtResource("8_qek5x")]
-enabled = false
