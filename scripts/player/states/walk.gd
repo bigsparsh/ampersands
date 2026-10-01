@@ -2,7 +2,7 @@ extends LimboState
 
 func _enter() -> void:
 	print("WALK")
-	agent.sprite.play("walk")
+	#agent.sprite.play("walk")
 	blackboard.set_var(&"can_double_jump", true)
 	blackboard.set_var(&"can_dash", true)
 

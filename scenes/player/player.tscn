@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://ch52uwldyfv7n" path="res://assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://6uj1avqx1p0i" path="res://scripts/player/states/jump.gd" id="6_qek5x"]
 [ext_resource type="Script" uid="uid://bpramklhutgmy" path="res://scripts/player/states/fall.gd" id="7_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://l6axt6maal0c" path="res://scenes/debug/DebugDraw.tscn" id="8_qek5x"]
 [ext_resource type="Script" uid="uid://cabr6h7klrmcw" path="res://scripts/player/states/dash.gd" id="9_h17s1"]
 [ext_resource type="PackedScene" uid="uid://q85ogwpofb84" path="res://scenes/components/hurt_box.tscn" id="11_gx1jg"]
 [ext_resource type="PackedScene" uid="uid://7x0qyqr2ynak" path="res://scenes/components/health.tscn" id="12_ugbui"]
@@ -131,6 +132,10 @@ animations = [{
 radius = 21.0
 height = 132.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w8r7"]
+radius = 20.0
+height = 132.0
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_h17s1"]
 var/can_double_jump/name = &"can_double_jump"
 var/can_double_jump/type = 1
@@ -143,20 +148,15 @@ var/can_dash/value = true
 var/can_dash/hint = 0
 var/can_dash/hint_string = "Can the player dash?"
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w8r7"]
-radius = 20.0
-height = 132.0
-
-[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("sprite", "label", "hsm") groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1681234604 node_paths=PackedStringArray("label", "hsm") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_8afob")
-sprite = NodePath("Sprite")
 label = NodePath("StateLabel")
 walk_speed = 700.0
 run_speed = 900.0
 jump_speed = Vector2(600, -1000)
-gravity = 980.0
 dash_speed = 4000.0
+jump_buffer_time = 0.15
 hsm = NodePath("LimboHSM")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1631609272]
@@ -169,6 +169,8 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
 position = Vector2(0, -66)
 shape = SubResource("CapsuleShape2D_uk4sb")
+
+[node name="DebugDraw" parent="." instance=ExtResource("8_qek5x")]
 
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=1247671996]
 blackboard_plan = SubResource("BlackboardPlan_h17s1")
@@ -195,10 +197,10 @@ script = ExtResource("5_75vfm")
 script = ExtResource("9_h17s1")
 
 [node name="StateLabel" type="Label" parent="." unique_id=2076747592]
-offset_left = -30.0
-offset_top = -182.0
-offset_right = 30.0
-offset_bottom = -163.0
+offset_left = -147.0
+offset_top = -188.0
+offset_right = 148.0
+offset_bottom = -104.0
 theme_override_fonts/font = ExtResource("5_p47bc")
 text = "State"
 horizontal_alignment = 1

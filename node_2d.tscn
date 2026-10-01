@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dvf1o8rcrtks2"]
+
+[ext_resource type="Script" uid="uid://dx6fye22qd63n" path="res://path_2d.gd" id="1_wtcfe"]
+
+[sub_resource type="Curve2D" id="Curve2D_y32ns"]
+_data = {
+"points": PackedVector2Array(0, 0, 50, -50, 0, 0, 0, 0, 0, 0, 99, 0)
+}
+point_count = 2
+
+[node name="Node2D" type="Node2D" unique_id=1739069066]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=97308867]
+curve = SubResource("Curve2D_y32ns")
+script = ExtResource("1_wtcfe")
+
+[node name="Line2D" type="Line2D" parent="Path2D" unique_id=64606856]
+width = 2.475
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=426612458]
