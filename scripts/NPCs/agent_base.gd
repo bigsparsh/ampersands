@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var gravity: float = 2000.0
 @export var gravity_multiplier: float = 1.0
 @export var facing: int = 1
+@export_flags_2d_physics var los_collision_mask: int = 3
 
 @onready var sprite: Sprite2D = %Sprite
 @onready var visuals: Node2D = %Visuals
@@ -12,9 +13,8 @@ extends CharacterBody2D
 @onready var front_floor_sensor: RayCast2D = %FrontFloorSensor
 @onready var health: Health = %Health
 @onready var los_origin: Marker2D = %LOSOrigin
-@export_flags_2d_physics var los_collision_mask: int = 3
 
-
+	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta * gravity_multiplier
@@ -53,3 +53,7 @@ func face(direction: int):
 
 func move(p_velocity: Vector2):
 	velocity = p_velocity
+	
+func stop_movement(x: bool = true, y: bool = true):
+	velocity.x = 0.0 if x else velocity.x
+	velocity.y = 0.0 if y else velocity.y

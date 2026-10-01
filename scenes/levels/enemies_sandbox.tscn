@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://b7ljck6rwflcb"]
 
 [ext_resource type="PackedScene" uid="uid://bxhd6s31j65n2" path="res://scenes/player/player.tscn" id="1_uk4sb"]
-[ext_resource type="PackedScene" uid="uid://ciivootdnja86" path="res://scenes/NPCs/agent_base.tscn" id="2_auv56"]
+[ext_resource type="PackedScene" uid="uid://blm7iilondg88" path="res://scenes/NPCs/enemies/g_spike_blob.tscn" id="2_auv56"]
+[ext_resource type="PackedScene" uid="uid://svmast0p0jj4" path="res://scenes/NPCs/enemies/f_mosquito.tscn" id="3_gm0yl"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_f0smo"]
+vertices = PackedVector2Array(1642.2109, 1378.0781, 3006.0234, 2494, -2670.0313, 2494, -2394.1719, 1345.9219, -2677.9688, -453.9375, -2369.8281, -74.03906, 73.78125, -437.9375, -279.60156, -210, 3013.9766, -982, 1601.7891, -610.3828, 2485.0938, -982, -1470, -1837.7891, -1838.8672, -2049.6875, -1404.2969, -2429.9297, 974, -2390.1563, 974, -1998, -429.84375, -1345.9219, 2518.8281, -1370, 1602, -1998, 1602, -2405.2188, 2762.2813, -2318.3984, 2990.1094, -1964.8594, 3013.6016, -1370, 82.21875, -825.84375, -437.84375, -833.84375, -1470, -1353.9219, 958.96875, -585.65625, 919.0078, -210, -319.59375, -66.02344)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(8, 1, 0, 9, 10), PackedInt32Array(11, 12, 13, 14, 15, 16), PackedInt32Array(17, 18, 19, 20, 21, 22), PackedInt32Array(23, 24, 16, 15), PackedInt32Array(16, 25, 11), PackedInt32Array(26, 27, 7, 6), PackedInt32Array(7, 28, 5), PackedInt32Array(26, 6, 23, 15), PackedInt32Array(10, 9, 26, 15, 18, 17)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2688, -464, -2680, 2504, 3016, 2504, 3024, -992, 2496, -992, 2528, -1360, 3024, -1360, 3000, -1968, 2768, -2328, 1592, -2416, 1592, -2008, 984, -2008, 984, -2400, -1408, -2440, -1856, -2048, -1480, -1832, -1480, -1344, -440, -1336, -448, -824, 72, -816, 64, -448), PackedVector2Array(-2360, -64, -312, -56, -272, -200, 928, -200, 968, -576, 1592, -600, 1632, 1368, -2384, 1336)])
 
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_5gtgg"]
 
@@ -50,11 +56,13 @@ _data = {
 
 [node name="Scene1" type="Node2D" unique_id=211941082]
 
-[node name="AgentBase" parent="." unique_id=1136658006 instance=ExtResource("2_auv56")]
-position = Vector2(8, -320)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=378822053]
+navigation_polygon = SubResource("NavigationPolygon_f0smo")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." unique_id=1681234604 instance=ExtResource("1_uk4sb")]
-position = Vector2(-400, -32)
+position = Vector2(-1120, -176)
+metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1800313496]
 position_smoothing_enabled = true
@@ -113,6 +121,7 @@ shape = SubResource("RectangleShape2D_xyp5l")
 [node name="MovingPlatform" type="AnimatableBody2D" parent="Platforms" unique_id=1359607002]
 position = Vector2(-256, 496.00003)
 scale = Vector2(1.9999999, 0.25000045)
+metadata/_edit_group_ = true
 
 [node name="Platform13" type="Sprite2D" parent="Platforms/MovingPlatform" unique_id=71723430]
 texture = SubResource("DrawableTexture2D_5gtgg")
@@ -122,6 +131,9 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MovingPlatform" unique_id=2055536430]
 position = Vector2(32, 31.999634)
 shape = SubResource("RectangleShape2D_uk4sb")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Platforms/MovingPlatform" unique_id=886472319]
+vertices = PackedVector2Array(0, -0.00012207031, 64.00001, -0.00012207031, 64.00001, 63.999756, 0, 63.999756)
 
 [node name="Platform4" type="Sprite2D" parent="Platforms" unique_id=412650573]
 position = Vector2(-128, -192)
@@ -254,3 +266,57 @@ shape = SubResource("RectangleShape2D_xyp5l")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms" unique_id=2061367852]
 libraries/ = SubResource("AnimationLibrary_gm0yl")
 autoplay = &"move"
+
+[node name="G_SpikeBlob" parent="." unique_id=1136658006 instance=ExtResource("2_auv56")]
+position = Vector2(120, -248)
+
+[node name="G_SpikeBlob2" parent="." unique_id=630784584 instance=ExtResource("2_auv56")]
+position = Vector2(1112, -600)
+
+[node name="G_SpikeBlob3" parent="." unique_id=532555146 instance=ExtResource("2_auv56")]
+position = Vector2(-368, -840)
+
+[node name="G_SpikeBlob4" parent="." unique_id=1772623943 instance=ExtResource("2_auv56")]
+position = Vector2(-2152, -80)
+
+[node name="G_SpikeBlob5" parent="." unique_id=1157128890 instance=ExtResource("2_auv56")]
+position = Vector2(-800, 1896)
+
+[node name="G_SpikeBlob6" parent="." unique_id=1045607607 instance=ExtResource("2_auv56")]
+position = Vector2(-464, 2416)
+
+[node name="F_Mosquito" parent="." unique_id=63389166 instance=ExtResource("3_gm0yl")]
+position = Vector2(-1608, -192)
+
+[node name="F_Mosquito2" parent="." unique_id=293691756 instance=ExtResource("3_gm0yl")]
+position = Vector2(-1368, -192)
+
+[node name="F_Mosquito3" parent="." unique_id=1650854872 instance=ExtResource("3_gm0yl")]
+position = Vector2(-1840, -200)
+
+[node name="F_Mosquito4" parent="." unique_id=441429059 instance=ExtResource("3_gm0yl")]
+position = Vector2(-880, -192)
+
+[node name="F_Mosquito5" parent="." unique_id=759809319 instance=ExtResource("3_gm0yl")]
+position = Vector2(1280, -664)
+
+[node name="F_Mosquito6" parent="." unique_id=1310760278 instance=ExtResource("3_gm0yl")]
+position = Vector2(-1600, 1736)
+
+[node name="F_Mosquito8" parent="." unique_id=435972082 instance=ExtResource("3_gm0yl")]
+position = Vector2(-584, 1720)
+
+[node name="F_Mosquito9" parent="." unique_id=154063529 instance=ExtResource("3_gm0yl")]
+position = Vector2(976, 1728)
+
+[node name="F_Mosquito10" parent="." unique_id=732818432 instance=ExtResource("3_gm0yl")]
+position = Vector2(2280, 1328)
+
+[node name="F_Mosquito11" parent="." unique_id=2124481068 instance=ExtResource("3_gm0yl")]
+position = Vector2(2248, -1824)
+
+[node name="F_Mosquito12" parent="." unique_id=2001302849 instance=ExtResource("3_gm0yl")]
+position = Vector2(-192, -1952)
+
+[node name="F_Mosquito7" parent="." unique_id=117154986 instance=ExtResource("3_gm0yl")]
+position = Vector2(2312, -56)

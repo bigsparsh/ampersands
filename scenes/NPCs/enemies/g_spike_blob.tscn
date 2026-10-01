@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://blm7iilondg88"]
+
+[ext_resource type="PackedScene" uid="uid://ciivootdnja86" path="res://scenes/NPCs/agent_base.tscn" id="1_yqj0v"]
+[ext_resource type="Script" uid="uid://8pktr653scv6" path="res://scripts/NPCs/enemies/g_spike_blob.gd" id="2_13gwe"]
+
+[node name="G_SpikeBlob" unique_id=1136658006 instance=ExtResource("1_yqj0v")]
+script = ExtResource("2_13gwe")

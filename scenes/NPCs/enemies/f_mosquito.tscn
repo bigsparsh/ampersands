@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://svmast0p0jj4"]
+
+[ext_resource type="PackedScene" uid="uid://c78bkljr1kpj3" path="res://scenes/NPCs/flying_agent_base.tscn" id="1_675yb"]
+[ext_resource type="Script" uid="uid://bvtj5mlir1mn3" path="res://scripts/NPCs/enemies/f_mosquito.gd" id="2_h06pf"]
+[ext_resource type="BehaviorTree" uid="uid://x0xxm70hll8" path="res://ai/trees/mosquito.tres" id="3_0frgc"]
+
+[node name="F_Mosquito" unique_id=1136658006 instance=ExtResource("1_675yb")]
+script = ExtResource("2_h06pf")
+air_friction = 0.05
+reach_threshold = Vector2(0, 0)
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1581021126]
+position = Vector2(0, -43)
+
+[node name="CollisionShape2D" parent="HitBox" parent_id_path=PackedInt32Array(1620250177) index="0" unique_id=1805255283]
+position = Vector2(0, -53)
+
+[node name="CollisionShape2D" parent="HurtBox" parent_id_path=PackedInt32Array(2042361983) index="0" unique_id=165908605]
+position = Vector2(0, -43)
+
+[node name="BTPlayer" parent="." index="5" unique_id=1356353061]
+behavior_tree = ExtResource("3_0frgc")
+
+[node name="Sprite" parent="Visuals" parent_id_path=PackedInt32Array(868208226) index="0" unique_id=541195508]
+position = Vector2(0, -56)
+flip_v = true
+
+[node name="LOSOrigin" parent="Visuals" parent_id_path=PackedInt32Array(868208226) index="1" unique_id=1500679409]
+position = Vector2(0, -111)
+
+[node name="FrontWallSensor" parent="Visuals/Sensors" parent_id_path=PackedInt32Array(54882305) index="0" unique_id=870666087]
+position = Vector2(0, -42)
+
+[node name="FrontFloorSensor" parent="Visuals/Sensors" parent_id_path=PackedInt32Array(54882305) index="1" unique_id=1023311944]
+position = Vector2(124, -42)

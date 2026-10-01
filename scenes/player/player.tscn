@@ -129,7 +129,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uk4sb"]
 radius = 21.0
-height = 134.0
+height = 132.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_h17s1"]
 var/can_double_jump/name = &"can_double_jump"
@@ -167,7 +167,7 @@ animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702474406]
-position = Vector2(0, -68.98001)
+position = Vector2(0, -66)
 shape = SubResource("CapsuleShape2D_uk4sb")
 
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=1247671996]
@@ -204,6 +204,7 @@ text = "State"
 horizontal_alignment = 1
 
 [node name="Health" parent="." unique_id=657937597 instance=ExtResource("12_ugbui")]
+max_health = 100000000000.0
 
 [node name="HurtBox" parent="." unique_id=2042361983 node_paths=PackedStringArray("health") instance=ExtResource("11_gx1jg")]
 collision_layer = 256

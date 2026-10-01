@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cakjsgp6op4v7" path="res://assets/enemies/spiky/frame-2.png" id="3_nf3h1"]
 [ext_resource type="PackedScene" uid="uid://7x0qyqr2ynak" path="res://scenes/components/health.tscn" id="4_u4rky"]
 [ext_resource type="PackedScene" uid="uid://dq54fgitdiuhd" path="res://scenes/components/health_bar.tscn" id="5_6rc6b"]
-[ext_resource type="BehaviorTree" uid="uid://dwdr2orxqhk07" path="res://ai/trees/test_tree.tres" id="6_u4rky"]
+[ext_resource type="BehaviorTree" uid="uid://dwdr2orxqhk07" path="res://ai/trees/ground_basic_to_and_fro.tres" id="6_u4rky"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4w8r7"]
 radius = 43.56604
@@ -19,6 +19,7 @@ radius = 50.01
 radius = 68.26419
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_6rc6b"]
+prefetch_nodepath_vars = false
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_ihcj0"]
 frames = 2
@@ -32,14 +33,12 @@ collision_layer = 4
 script = ExtResource("1_p2vtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1581021126]
-position = Vector2(0, -43)
 shape = SubResource("CircleShape2D_4w8r7")
 
 [node name="HitBox" parent="." unique_id=1620250177 instance=ExtResource("2_xjq7s")]
 knockback_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1805255283]
-position = Vector2(0, -53)
 shape = SubResource("CircleShape2D_jd6vm")
 debug_color = Color(0.86947167, 0.29397118, 0.50381154, 0.41960785)
 
@@ -47,7 +46,6 @@ debug_color = Color(0.86947167, 0.29397118, 0.50381154, 0.41960785)
 health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=165908605]
-position = Vector2(0, -43)
 shape = SubResource("CircleShape2D_5dyjm")
 debug_color = Color(2.3102762e-06, 0.64008766, 0.35977542, 0.41960785)
 
@@ -61,6 +59,7 @@ offset_top = -143.0
 offset_right = 81.0
 offset_bottom = -116.0
 health = NodePath("../Health")
+metadata/_edit_use_anchors_ = true
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=1356353061]
 behavior_tree = ExtResource("6_u4rky")
@@ -71,23 +70,22 @@ unique_name_in_owner = true
 
 [node name="Sprite" type="Sprite2D" parent="Visuals" unique_id=541195508]
 unique_name_in_owner = true
-position = Vector2(0, -56)
+position = Vector2(0, -14)
 scale = Vector2(0.3, 0.3)
 texture = SubResource("AnimatedTexture_ihcj0")
 flip_h = true
 
 [node name="LOSOrigin" type="Marker2D" parent="Visuals" unique_id=1500679409]
 unique_name_in_owner = true
-position = Vector2(34, -48)
+position = Vector2(19, 10)
 
 [node name="Sensors" type="Node2D" parent="Visuals" unique_id=54882305]
 
 [node name="FrontWallSensor" type="RayCast2D" parent="Visuals/Sensors" unique_id=870666087]
 unique_name_in_owner = true
-position = Vector2(0, -42)
 target_position = Vector2(125, 0)
 
 [node name="FrontFloorSensor" type="RayCast2D" parent="Visuals/Sensors" unique_id=1023311944]
 unique_name_in_owner = true
-position = Vector2(124, -42)
+position = Vector2(124, 0)
 target_position = Vector2(0, 100)

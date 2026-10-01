@@ -14,3 +14,5 @@ func _ready() -> void:
 func take_damage(amount: float, knockback: Vector2, source: HitBox) -> void:
 	last_attack_vector = owner.global_position - source.owner.global_position
 	health.take_damage(amount, knockback)
+	if owner.has_method(&"apply_knockback"):
+		owner.apply_knockback(knockback)

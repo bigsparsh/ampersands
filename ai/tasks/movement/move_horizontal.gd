@@ -14,7 +14,7 @@ func _tick(_delta: float) -> Status:
 		return FAILURE
 	var desired_vel := Vector2(speed * actor.facing, 0)
 	actor.move(desired_vel)
-	return SUCCESS
+	return RUNNING
 
 #func _exit() -> void:
 	#actor.move(Vector2.ZERO)

@@ -1,0 +1,127 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://x0xxm70hll8"]
+
+[ext_resource type="Script" uid="uid://dpc86otwvoyfa" path="res://ai/tasks/utils/find_target.gd" id="1_lvm2a"]
+[ext_resource type="Script" uid="uid://b1qw8lsjj77mc" path="res://ai/tasks/utils/is_target_in_range.gd" id="2_jfrhs"]
+[ext_resource type="Script" uid="uid://blmfmrg34dqpo" path="res://ai/tasks/utils/is_target_in_sight.gd" id="3_abkul"]
+[ext_resource type="Script" uid="uid://c76jj8peyp36l" path="res://ai/tasks/movement/face_target.gd" id="4_fgpv8"]
+[ext_resource type="Script" uid="uid://qtdkma28nb75" path="res://ai/tasks/movement/stop_movement.gd" id="5_6uvbn"]
+[ext_resource type="Script" uid="uid://nntyt5xfyfx8" path="res://ai/tasks/navigation/navigate_to_node.gd" id="6_6uvbn"]
+[ext_resource type="Script" uid="uid://cwchip1r0alpe" path="res://ai/tasks/movement/is_colliding.gd" id="7_lvm2a"]
+[ext_resource type="Script" uid="uid://kv5bm85s8wim" path="res://ai/tasks/navigation/is_pos_reachable.gd" id="8_5axkk"]
+[ext_resource type="Script" uid="uid://c37idpleil87b" path="res://ai/tasks/utils/find_random_pos_in_range.gd" id="9_lvm2a"]
+[ext_resource type="Script" uid="uid://b4q72hi2piypu" path="res://ai/tasks/navigation/navigate_to_pos.gd" id="10_jfrhs"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_6e1vt"]
+prefetch_nodepath_vars = false
+var/target_pos/name = &"target_pos"
+var/target_pos/type = 5
+var/target_pos/value = Vector2(0, 0)
+var/target_pos/hint = 0
+var/target_pos/hint_string = ""
+var/target_node/name = &"target_node"
+var/target_node/type = 22
+var/target_node/value = NodePath("")
+var/target_node/hint = 0
+var/target_node/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_lvm2a"]
+script = ExtResource("1_lvm2a")
+
+[sub_resource type="BTCondition" id="BTCondition_jfrhs"]
+script = ExtResource("2_jfrhs")
+range = 700.0
+
+[sub_resource type="BTCondition" id="BTCondition_abkul"]
+script = ExtResource("3_abkul")
+
+[sub_resource type="BTAction" id="BTAction_fgpv8"]
+script = ExtResource("4_fgpv8")
+
+[sub_resource type="BTCondition" id="BTCondition_eh88k"]
+script = ExtResource("2_jfrhs")
+range = 100.0
+
+[sub_resource type="BTAction" id="BTAction_x3ird"]
+script = ExtResource("5_6uvbn")
+y = true
+
+[sub_resource type="BTSequence" id="BTSequence_c7jam"]
+custom_name = "stop if reached target"
+children = [SubResource("BTCondition_eh88k"), SubResource("BTAction_x3ird")]
+
+[sub_resource type="BTAction" id="BTAction_5axkk"]
+script = ExtResource("6_6uvbn")
+speed = 400.0
+
+[sub_resource type="BTSelector" id="BTSelector_6uvbn"]
+children = [SubResource("BTSequence_c7jam"), SubResource("BTAction_5axkk")]
+
+[sub_resource type="BTSequence" id="BTSequence_b2gcd"]
+custom_name = "Chase Player"
+children = [SubResource("BTAction_lvm2a"), SubResource("BTCondition_jfrhs"), SubResource("BTCondition_abkul"), SubResource("BTAction_fgpv8"), SubResource("BTSelector_6uvbn")]
+_enabled = false
+
+[sub_resource type="BTAction" id="BTAction_c7jam"]
+_enabled = false
+script = ExtResource("5_6uvbn")
+y = true
+
+[sub_resource type="BTCondition" id="BTCondition_fgpv8"]
+script = ExtResource("7_lvm2a")
+
+[sub_resource type="BTAction" id="BTAction_ar2tt"]
+script = ExtResource("9_lvm2a")
+
+[sub_resource type="BTCondition" id="BTCondition_1g88w"]
+script = ExtResource("8_5axkk")
+
+[sub_resource type="BTSelector" id="BTSelector_amh4q"]
+children = [SubResource("BTAction_ar2tt"), SubResource("BTCondition_1g88w")]
+
+[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_2tk0x"]
+children = [SubResource("BTSelector_amh4q")]
+
+[sub_resource type="BTSequence" id="BTSequence_15kvj"]
+children = [SubResource("BTCondition_fgpv8"), SubResource("BTRepeatUntilSuccess_2tk0x")]
+
+[sub_resource type="BTAlwaysFail" id="BTAlwaysFail_lvm2a"]
+children = [SubResource("BTSequence_15kvj")]
+
+[sub_resource type="BTAction" id="BTAction_abkul"]
+script = ExtResource("9_lvm2a")
+
+[sub_resource type="BTCondition" id="BTCondition_lvm2a"]
+script = ExtResource("8_5axkk")
+
+[sub_resource type="BTSelector" id="BTSelector_5axkk"]
+children = [SubResource("BTAction_abkul"), SubResource("BTCondition_lvm2a")]
+
+[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_1g88w"]
+children = [SubResource("BTSelector_5axkk")]
+
+[sub_resource type="BTAction" id="BTAction_jfrhs"]
+script = ExtResource("4_fgpv8")
+target_var = &"target_pos"
+
+[sub_resource type="BTAction" id="BTAction_eh88k"]
+script = ExtResource("10_jfrhs")
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_5axkk"]
+children = [SubResource("BTAction_eh88k")]
+
+[sub_resource type="BTSequence" id="BTSequence_5axkk"]
+children = [SubResource("BTRepeatUntilSuccess_1g88w"), SubResource("BTAction_jfrhs"), SubResource("BTTimeLimit_5axkk")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_eh88k"]
+children = [SubResource("BTAlwaysFail_lvm2a"), SubResource("BTSequence_5axkk")]
+
+[sub_resource type="BTSequence" id="BTSequence_wyqkx"]
+custom_name = "Random Roam"
+children = [SubResource("BTAction_c7jam"), SubResource("BTDynamicSelector_eh88k")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_6uvbn"]
+children = [SubResource("BTSequence_b2gcd"), SubResource("BTSequence_wyqkx")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_6e1vt")
+root_task = SubResource("BTDynamicSelector_6uvbn")
