@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c78bkljr1kpj3"]
+
+[ext_resource type="PackedScene" uid="uid://ciivootdnja86" path="res://scenes/NPCs/agent_base.tscn" id="1_sy1oh"]
+[ext_resource type="Script" uid="uid://b5c0y2npdebbo" path="res://scripts/NPCs/flying_agent_base.gd" id="2_lsstb"]
+
+[node name="FlyingAgentBase" unique_id=1136658006 instance=ExtResource("1_sy1oh")]
+script = ExtResource("2_lsstb")
+reach_threshold = Vector2(50, 50)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7" unique_id=556285106]
+unique_name_in_owner = true
+simplify_path = true
+avoidance_enabled = true
+radius = 40.0

@@ -9,6 +9,7 @@ const DEBUG_TICK = preload("uid://byjxn46oactcj")
 @export_category("Player Elements")
 #@export var sprite: AnimatedSprite2D 
 @export var label: Label 
+@onready var sights: Sights = %Sights
 
 @export_category("Movement")
 @export var walk_speed: float = 500

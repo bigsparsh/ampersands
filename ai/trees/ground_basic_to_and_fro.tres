@@ -1,0 +1,112 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://dwdr2orxqhk07"]
+
+[ext_resource type="Script" uid="uid://66i3ql8moifs" path="res://ai/tasks/movement/is_on_floor.gd" id="1_b43gq"]
+[ext_resource type="Script" uid="uid://dpc86otwvoyfa" path="res://ai/tasks/utils/find_target.gd" id="1_gk405"]
+[ext_resource type="Script" uid="uid://b1qw8lsjj77mc" path="res://ai/tasks/utils/is_target_in_range.gd" id="2_b43gq"]
+[ext_resource type="Script" uid="uid://blmfmrg34dqpo" path="res://ai/tasks/utils/is_target_in_sight.gd" id="3_nrqem"]
+[ext_resource type="Script" uid="uid://c76jj8peyp36l" path="res://ai/tasks/movement/face_target.gd" id="4_5tefi"]
+[ext_resource type="Script" uid="uid://qtdkma28nb75" path="res://ai/tasks/movement/stop_movement.gd" id="6_b43gq"]
+[ext_resource type="Script" uid="uid://h42iwlrfthks" path="res://ai/tasks/movement/is_wall_ahead.gd" id="6_wegyi"]
+[ext_resource type="Script" uid="uid://bwaiojk427enq" path="res://ai/tasks/movement/jump.gd" id="7_lj4db"]
+[ext_resource type="Script" uid="uid://dg1hncsr07v0h" path="res://ai/tasks/movement/move_horizontal.gd" id="8_xo3tw"]
+[ext_resource type="Script" uid="uid://dspme6rjnl5m8" path="res://ai/tasks/movement/is_ledge_ahead.gd" id="9_r26sg"]
+[ext_resource type="Script" uid="uid://desukc1q7c03l" path="res://ai/tasks/movement/turn_around.gd" id="10_pcbi5"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ihcj0"]
+prefetch_nodepath_vars = false
+var/target_node/name = &"target_node"
+var/target_node/type = 22
+var/target_node/value = NodePath("")
+var/target_node/hint = 0
+var/target_node/hint_string = ""
+var/random_pos/name = &"random_pos"
+var/random_pos/type = 5
+var/random_pos/value = Vector2(0, 0)
+var/random_pos/hint = 0
+var/random_pos/hint_string = ""
+
+[sub_resource type="BTCondition" id="BTCondition_kosrh"]
+script = ExtResource("1_b43gq")
+
+[sub_resource type="BTInvert" id="BTInvert_thmw6"]
+children = [SubResource("BTCondition_kosrh")]
+
+[sub_resource type="BTAction" id="BTAction_l4anq"]
+script = ExtResource("1_gk405")
+
+[sub_resource type="BTCondition" id="BTCondition_alme7"]
+script = ExtResource("2_b43gq")
+range = 750.0
+
+[sub_resource type="BTCondition" id="BTCondition_qu6iv"]
+script = ExtResource("3_nrqem")
+
+[sub_resource type="BTAction" id="BTAction_ucdji"]
+script = ExtResource("4_5tefi")
+
+[sub_resource type="BTCondition" id="BTCondition_i3ulo"]
+script = ExtResource("2_b43gq")
+range = 10.0
+
+[sub_resource type="BTAction" id="BTAction_a7660"]
+script = ExtResource("6_b43gq")
+
+[sub_resource type="BTSequence" id="BTSequence_0swk7"]
+custom_name = "stop if reached target"
+children = [SubResource("BTCondition_i3ulo"), SubResource("BTAction_a7660")]
+
+[sub_resource type="BTCondition" id="BTCondition_g73xh"]
+script = ExtResource("6_wegyi")
+
+[sub_resource type="BTAction" id="BTAction_i3ulo"]
+script = ExtResource("7_lj4db")
+jump_strength = 800.0
+
+[sub_resource type="BTSequence" id="BTSequence_0hox1"]
+custom_name = "Jump Over Wall"
+children = [SubResource("BTCondition_g73xh"), SubResource("BTAction_i3ulo")]
+
+[sub_resource type="BTAction" id="BTAction_lbuxp"]
+script = ExtResource("8_xo3tw")
+speed = 500.0
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_b43gq"]
+children = [SubResource("BTSequence_0swk7"), SubResource("BTSequence_0hox1"), SubResource("BTAction_lbuxp")]
+
+[sub_resource type="BTSequence" id="BTSequence_ucdji"]
+custom_name = "Chase Player"
+children = [SubResource("BTAction_l4anq"), SubResource("BTCondition_alme7"), SubResource("BTCondition_qu6iv"), SubResource("BTAction_ucdji"), SubResource("BTDynamicSelector_b43gq")]
+_enabled = false
+
+[sub_resource type="BTCondition" id="BTCondition_b43gq"]
+script = ExtResource("6_wegyi")
+
+[sub_resource type="BTCondition" id="BTCondition_nrqem"]
+script = ExtResource("9_r26sg")
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_us0w7"]
+children = [SubResource("BTCondition_b43gq"), SubResource("BTCondition_nrqem")]
+
+[sub_resource type="BTAction" id="BTAction_wegyi"]
+script = ExtResource("10_pcbi5")
+
+[sub_resource type="BTCooldown" id="BTCooldown_lj4db"]
+duration = 2.0
+children = [SubResource("BTAction_wegyi")]
+
+[sub_resource type="BTSequence" id="BTSequence_xo3tw"]
+children = [SubResource("BTDynamicSelector_us0w7"), SubResource("BTCooldown_lj4db")]
+
+[sub_resource type="BTAction" id="BTAction_r26sg"]
+script = ExtResource("8_xo3tw")
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_pcbi5"]
+custom_name = "GroundPatrol"
+children = [SubResource("BTSequence_xo3tw"), SubResource("BTAction_r26sg")]
+
+[sub_resource type="BTSelector" id="BTSelector_6kuyo"]
+children = [SubResource("BTInvert_thmw6"), SubResource("BTSequence_ucdji"), SubResource("BTDynamicSelector_pcbi5")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ihcj0")
+root_task = SubResource("BTSelector_6kuyo")
